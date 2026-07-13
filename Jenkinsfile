@@ -10,13 +10,7 @@ pipeline {
                 }
             }
         }
-        stage('verify deployement') {
-            steps {
-                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'EKS-2', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', serverUrl: 'https://D8DACF4F6D230EBBA5F32A9F93B9499D.gr7.ap-south-1.eks.amazonaws.com']]) {
-                   sh "kubectl get all -n webapps"
-                   sh "kubectl get svc -n webapps"
-                }
-            }
+        
         }
     }
-}
+
