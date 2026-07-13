@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t ravinaclouddevops/myapp:latest .'
+                sh 'docker build -t ravinaclouddevops/adservice:latest .'
             }
         }
 
@@ -18,7 +18,7 @@ pipeline {
 
         stage('Push') {
             steps {
-                sh 'docker push ravinaclouddevops/myapp:latest'
+                sh 'docker push ravinaclouddevops/adservice:latest'
             }
         }
     }
