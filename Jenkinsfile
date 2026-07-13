@@ -2,23 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Build & Tag Docker Image') {
+        stage('Build') {
             steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t ravinaclouddevops:latest ."
-                    }
+                sh 'docker build -t ravinaclouddevops/recommendationservice:latest .'
+            }
+        }
+
+        stage('Login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-cred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
                 }
             }
         }
-        
-        stage('Push Docker Image') {
+
+        stage('Push') {
             steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push ravinaclouddevops:latest "
-                    }
-                }
+                sh 'docker push ravinaclouddevops/recommendationservice:latest'
             }
         }
     }
