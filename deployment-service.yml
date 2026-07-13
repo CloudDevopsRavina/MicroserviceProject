@@ -81,7 +81,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: ravinaclouddevops/checkoutservice:latest
+          image: ravinaclouddevops/checkout:latest
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -297,7 +297,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: ravinaclouddevops:latest
+        image: ravinaclouddevops/paymentservice:latest
         ports:
         - containerPort: 50051
         env:
@@ -349,7 +349,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: ravinaclouddevops/productcatalogservic:latest
+        image: ravinaclouddevops/product:latest
         ports:
         - containerPort: 3550
         env:
