@@ -6,23 +6,27 @@ pipeline {
             steps {
                 script {
                     dir('src') {
-
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
                         sh "docker build -t adijaiswal/cartservice:latest ."
-                    }
+                        
                         }
                 }
             }
         }
         
-        stage('Push Docker Image') {
+         stage('Docker Login') {
             steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push adijaiswal/cartservice:latest "
-                    }
+                withCredentials([usernamePassword(credentialsId: 'docker-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'echo "$PASSWORD" | docker login -u "$USERNAME" --password-stdin'
                 }
             }
         }
+
+        stage('Push') {
+            steps {
+                sh 'docker push ravinaclouddevops/cartservice:latest'
+            }
+        }
+    }
+}
     }
 }
