@@ -4,10 +4,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                 script {
+                    dir('src') {
                 sh 'docker build -t ravinaclouddevops/cartservice:latest .'
-            }
+             }
+          }
         }
-
+        
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
